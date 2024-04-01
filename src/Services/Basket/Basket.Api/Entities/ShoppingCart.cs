@@ -5,7 +5,7 @@ public class ShoppingCart
     /// <summary>
     /// 用户名
     /// </summary>
-    public string? UserName { get; set; }
+    public string UserName { get; set; } = string.Empty;
     /// <summary>
     /// 购物车商品
     /// </summary>
