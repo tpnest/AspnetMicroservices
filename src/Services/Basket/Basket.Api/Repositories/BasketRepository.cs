@@ -22,10 +22,7 @@ public class BasketRepository : IBasketRepository
     {
        var basket = await _redisCache.GetStringAsync(userName);
 
-       if (string.IsNullOrWhiteSpace(basket))
-            return null;
-
-        return JsonSerializer.Deserialize<ShoppingCart>(basket);
+       return string.IsNullOrWhiteSpace(basket) ? null : JsonSerializer.Deserialize<ShoppingCart>(basket);
     }
 
     public async Task<ShoppingCart?> UpdateBasketAsync(ShoppingCart basket)
