@@ -1,3 +1,4 @@
+using Discount.Api.Extensions;
 using Discount.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 
 var app = builder.Build();
+
+app.MigrateDatabase<Program>();
 
 if (app.Environment.IsDevelopment())
 {

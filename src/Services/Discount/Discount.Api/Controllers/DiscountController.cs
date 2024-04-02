@@ -19,7 +19,7 @@ public class DiscountController : ControllerBase
     [HttpGet("{productName}")]
     public async Task<ActionResult<Coupon>> GetDiscount(string productName)
     {
-        return await discountRepository.GetDiscount(productName);
+        return Ok(await discountRepository.GetDiscount(productName));
     }
 
     [HttpPost]
