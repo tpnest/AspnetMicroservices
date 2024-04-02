@@ -1,4 +1,6 @@
+using Basket.Api.GrpcServices;
 using Basket.Api.Repositories;
+using Discount.Grpc.Protos;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,11 +15,23 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");
+    options.Configuration = builder.Configuration["CacheSettings:ConnectionString"];
 });
 
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
+#region Ìí¼ÓGrpc
+
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(opt =>
+{
+
+    opt.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUri"]);
+});
+
+builder.Services.AddScoped<DiscountGrpcService>();
+#endregion
+
 
 var app = builder.Build();
 
