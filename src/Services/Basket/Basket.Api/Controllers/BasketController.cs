@@ -1,7 +1,6 @@
 ﻿using Basket.Api.Entities;
 using Basket.Api.GrpcServices;
 using Basket.Api.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basket.Api.Controllers
