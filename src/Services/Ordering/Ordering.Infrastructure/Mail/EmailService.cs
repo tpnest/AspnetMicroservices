@@ -21,24 +21,19 @@ public class EmailService : IEmailService
     public async Task<bool> SendEmail(Email email)
     {
         var client = new SendGridClient(EmailSettings.ApiKey);
-
         var subject = email.Subject;
         var to = new EmailAddress(email.To);
         var body = email.Body;
-
         var from = new EmailAddress
         {
             Email = EmailSettings.FromAddress,
             Name = EmailSettings.FromName
         };
-
         var sendGridMessage = MailHelper.CreateSingleEmail(from, to, subject, body, body);
         var response = await client.SendEmailAsync(sendGridMessage);
         Logger.LogInformation("Email sent.");
-
         if (response.StatusCode == HttpStatusCode.Accepted || response.StatusCode == HttpStatusCode.OK)
             return true;
-
         Logger.LogError("Email sending failed.");
         return false;
     }
